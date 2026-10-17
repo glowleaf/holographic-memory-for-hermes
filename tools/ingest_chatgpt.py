@@ -5,7 +5,7 @@ Same two-tier shape as ingest_sessions.py: a header fact per conversation plus i
 conversation, chunked into atomic facts. The export here is 828 conversations / ~101M chars, so the
 cap (not the whole transcript) is what keeps the store usable; raise --max-chars for depth.
 
-  python ingest_chatgpt.py --file "<WORKSPACE>/chatgpt backup/conversations.json"
+  python ingest_chatgpt.py --file "<WORKSPACE>/export/conversations.json"
 """
 from __future__ import annotations
 
@@ -66,7 +66,8 @@ def conversation_turns(conv: dict) -> tuple[list[str], dict]:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--file", default=r"<WORKSPACE>/chatgpt backup/conversations.json")
+    ap.add_argument("--file", required=True,
+                    help="path to conversations.json from your chat export")
     ap.add_argument("--db", default=os.path.join(os.environ.get("HERMES_HOME", os.path.expanduser("~/.hermes")), "memory_store.db"))
     ap.add_argument("--max-chars", dest="max_chars", type=int, default=6000)
     ap.add_argument("--chunk", type=int, default=1200)

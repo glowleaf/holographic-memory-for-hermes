@@ -175,8 +175,8 @@ def call_local(urls: str, model: str, transcript: str, timeout: int = 600, max_t
                    "User-Agent": os.environ.get("HOLO_USER_AGENT", "hermes-rem/1.0")}
         if "api.example.invalid" in base:
             # This gateway refuses requests without a routing session: HTTP 403/400
-            # {"type":"MissingSessionID","message":"Request is missing x-opencode-session..."}
-            headers["x-opencode-session"] = os.environ.get("HOLO_SESSION_ID") or ("hermes-rem-" + os.environ.get("HOLO_TAG", "default"))
+            # {"type":"MissingSessionID","message":"Request is missing x-session-id..."}
+            headers["x-session-id"] = os.environ.get("HOLO_SESSION_ID") or ("hermes-rem-" + os.environ.get("HOLO_TAG", "default"))
         keys = _api_key_candidates(key_name.strip()) or [""]   # try every key we have before giving up
         for key in keys:
             if key:
@@ -249,7 +249,7 @@ def main() -> int:
     ap.add_argument("--workdir", default=os.path.join(HERE, "sleep"))
     ap.add_argument("--model-url", default=os.environ.get(
         "SLEEP_MODEL_URLS",
-        "https://api.example.invalid/v1|provider-model|PROVIDER_API_KEY,"
+        "https://api.example.invalid/v1|provider-model|gateway_GO_API_KEY,"
         "http://127.0.0.1:8011|local-model"),
         help="endpoints as 'url|model|ENV_VAR_FOR_KEY'; cloud first, local fallback second")
     ap.add_argument("--model", default=os.environ.get("SLEEP_MODEL", "local-model"),

@@ -33,7 +33,7 @@ DEEP = os.environ.get("HOLO_DEEP", "60")
 DEEP_CHARS = os.environ.get("HOLO_DEEP_CHARS", "40000")
 TARGET = int(os.environ.get("HOLO_MEMORY_TARGET", "3000"))
 MODELS = os.environ.get("SLEEP_MODEL_URLS",
-                        "https://api.example.invalid/v1|provider-model|PROVIDER_API_KEY,"
+                        "https://api.example.invalid/v1|provider-model|gateway_GO_API_KEY,"
                         "http://127.0.0.1:8011|local-model")   # cloud main, local 8B fallback
 LOG = os.environ.get("HOLO_LOG", os.path.join(TOOLKIT, "rem.log"))
 INBOX = os.environ.get("HOLO_INBOX", os.path.join(TOOLKIT, "inbox"))
