@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.db
+*.db-wal
+*.db-shm
+*.jsonl
+*.log
+sleep/
+inbox/
+rem_state.json
+rem_metrics.jsonl
+*.stamp
+.DS_Store

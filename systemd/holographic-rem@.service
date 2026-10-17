@@ -1,0 +1,25 @@
+[Unit]
+Description=Holographic memory REM cycle for %i (nightly consolidation)
+Documentation=file:///path/to/toolkit/rem_cycle.py
+After=network-online.target
+
+[Service]
+Type=oneshot
+# One unit per Hermes home you want maintained. Replace the placeholders.
+Environment=HERMES_HOME=<HERMES_HOME>
+Environment=HERMES_INSTALL=<HERMES_INSTALL>
+Environment=HOLO_TOOLKIT=<TOOLKIT>
+Environment=HOLO_TAG=<short-name-for-this-home>
+# Budgets (the adaptive layer tunes these further at runtime)
+Environment=HOLO_MEMORY_TARGET=3000
+Environment=HOLO_DEEP=60
+Environment=HOLO_DEEP_CHARS=40000
+# Model policy: cloud primary, local fallback. Pattern: url|model|ENV_VAR_HOLDING_THE_KEY
+Environment=SLEEP_MODEL_URLS=https://api.example.invalid/v1|provider-model|PROVIDER_API_KEY,http://127.0.0.1:8080|local-model
+ExecStart=/usr/bin/env python3 <TOOLKIT>/rem_cycle.py
+TimeoutStartSec=3600
+Nice=10
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=default.target
